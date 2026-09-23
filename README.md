@@ -6,7 +6,7 @@ Enter a vehicle, a city, and a driver. The app rates that same risk in **every c
 draws the result as a choropleth, breaks the premium into its rating factors, and has a model running
 on your own machine explain *why* the rate is what it is.
 
-![Auto Rate Explorer — a 2020 Lamborghini Huracán rated across New Jersey](docs/screenshot.png)
+
 
 > **3,144 counties · 49,951 places · 51 jurisdictions · 28 unit tests · no API keys · no cloud LLM**
 
