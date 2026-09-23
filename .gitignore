@@ -1,0 +1,16 @@
+venv/
+__pycache__/
+*.pyc
+# large raw Census downloads - rebuilt by scripts/
+data/*.zip
+data/*.csv
+data/2023_Gaz_*.txt
+data/counties_raw.geojson
+data/ct_test.json
+
+# local / editor junk
+.DS_Store
+.Rhistory
+*.log
+.vscode/
+.idea/

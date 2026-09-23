@@ -1,0 +1,2 @@
+# test-only; the app itself needs nothing beyond requirements.txt
+playwright==1.63.0
