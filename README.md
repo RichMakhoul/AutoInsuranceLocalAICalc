@@ -14,8 +14,8 @@ on your own machine explain *why* the rate is what it is.
 
 ## Quickstart
 
-You need **Python 3.11+**. [Ollama](https://ollama.com/download) is optional but recommended —
-it's what powers the explanations.
+You need **Python 3.11+**. [Ollama](https://ollama.com/download) is optional but recommended.
+It's what powers the explanations.
 
 **macOS / Linux**
 
