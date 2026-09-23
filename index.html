@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Auto Rate Explorer</title>
+<link rel="stylesheet" href="/static/vendor/leaflet.css">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<header>
+  <h1>Auto Rate Explorer</h1>
+  <span class="sub">County-level personal auto rating &middot; deterministic engine + local LLM</span>
+  <span class="spacer"></span>
+  <span class="pill" id="pill-llm"><span class="dot" id="dot-llm"></span><span id="llm-label">checking model…</span></span>
+  <span class="pill" id="pill-data"><span class="dot on"></span><span id="data-label">loading data…</span></span>
+</header>
+
+<div class="layout">
+
+  <!-- ---------------- inputs ---------------- -->
+  <div class="col-left">
+    <div class="card">
+      <h2>The risk</h2>
+
+      <label for="veh">Vehicle</label>
+      <div class="row" style="grid-template-columns: 1fr auto; gap: 8px;">
+        <input id="veh" placeholder="06 honda civic" autocomplete="off">
+        <button class="ghost" id="btn-parse" style="width:auto; white-space:nowrap;">Parse</button>
+      </div>
+      <div class="hint" id="parse-hint">Type it however you like &mdash; the local model normalizes it.</div>
+
+      <div class="row-3" style="margin-top:10px;">
+        <div><label for="year" style="margin-top:0">Year</label><input id="year" inputmode="numeric" placeholder="2006"></div>
+        <div><label for="make" style="margin-top:0">Make</label><input id="make" placeholder="Honda"></div>
+        <div><label for="model" style="margin-top:0">Model</label><input id="model" placeholder="Civic"></div>
+      </div>
+
+      <label for="city">City</label>
+      <div class="ac-wrap">
+        <input id="city" placeholder="Lodi" autocomplete="off">
+        <div class="ac" id="ac" hidden></div>
+      </div>
+      <div class="hint" id="city-hint">Resolved to a county offline &mdash; no geocoding service.</div>
+
+      <div class="row" style="margin-top:10px;">
+        <div><label for="state" style="margin-top:0">State</label><select id="state"></select></div>
+        <div><label for="age" style="margin-top:0">Driver age</label><input id="age" inputmode="numeric" value="22"></div>
+      </div>
+
+      <label for="coverage">Coverage</label>
+      <select id="coverage">
+        <option value="full_coverage">Full coverage</option>
+        <option value="full_low_deductible">Full coverage, low deductible</option>
+        <option value="liability_only">Liability only</option>
+      </select>
+
+      <button id="btn-quote" style="margin-top:16px;">Rate across the state</button>
+      <div class="hint" id="quote-err"></div>
+    </div>
+
+    <div class="card">
+      <h2>How the premium is built</h2>
+      <table class="factors" id="factors">
+        <tr><td class="muted" colspan="2">Run a quote to see the rating chain.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ---------------- map ---------------- -->
+  <div class="col-mid">
+    <div class="card map-card">
+      <div id="map"></div>
+      <div class="map-foot">
+        <div class="legend">
+          <span class="cap" id="lg-lo">—</span>
+          <span class="ramp" id="ramp"></span>
+          <span class="cap" id="lg-hi">—</span>
+          <span style="margin-left:4px">annual premium</span>
+        </div>
+        <span class="spacer" style="flex:1"></span>
+        <span class="muted" id="map-note" style="font-size:11px">Same driver &amp; vehicle in every county &mdash; only territory varies.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---------------- results ---------------- -->
+  <div class="col-right">
+    <div class="card">
+      <h2>Your county</h2>
+      <div id="hero" class="hero"><div class="muted" style="text-align:left">No quote yet.</div></div>
+    </div>
+
+    <div class="card">
+      <h2>Across the state</h2>
+      <div class="stats" id="stats">
+        <div class="muted" style="grid-column:1/-1">—</div>
+      </div>
+    </div>
+
+    <div class="card grow">
+      <h2>Why this rate</h2>
+      <div id="explain" class="muted">Run a quote, then ask the model to explain it.</div>
+      <button class="ghost" id="btn-explain" style="margin-top:12px" disabled>Explain this rate</button>
+    </div>
+  </div>
+
+</div>
+
+<script src="/static/vendor/leaflet.js"></script>
+<script src="/static/app.js"></script>
+</body>
+</html>
